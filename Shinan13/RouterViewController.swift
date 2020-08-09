@@ -54,18 +54,18 @@ extension RouterViewController: Router {
             itemEditVC.presenter = itemEditPresenter
             itemEditVC.mode = editID == nil ? .create : .edit
             
-            let itemEditNC = ItemEditNavigationController(rootViewController: itemEditVC)
-            itemEditNC.onDismiss = {
-                itemListVC.presenter.fetchItems()
-                itemListVC.reloadItems()
-            }
-            itemListVC.present(itemEditNC, animated: true, completion: nil)
+            let nc = UINavigationController(rootViewController: itemEditVC)
+            nc.presentationController?.delegate = itemListVC
+            itemListVC.present(nc, animated: true, completion: nil)
         }
     }
     
     func dismissItemEditView() {
         if let topVC = itemNavigationController.topViewController?.presentedViewController {
             topVC.dismiss(animated: true, completion: nil)
+            if let presentationController = topVC.presentationController {
+                presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
+            }
         }
     }
     

@@ -9,15 +9,6 @@
 import SnapKit
 import UIKit
 
-final class ItemEditNavigationController: UINavigationController {
-    var onDismiss: (() -> Void)?
-    
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        super.dismiss(animated: flag, completion: completion)
-        onDismiss?()
-    }
-}
-
 final class ItemEditViewController: UIViewController, ItemEditPresenterOutput {
     
     var presenter: ItemEditPresenterInput!

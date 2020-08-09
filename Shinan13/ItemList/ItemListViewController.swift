@@ -54,6 +54,13 @@ extension ItemListViewController: ItemListPresenterOutput {
     }
 }
 
+extension ItemListViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        presenter.fetchItems()
+        reloadItems()
+    }
+}
+
 extension ItemListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.items.count
