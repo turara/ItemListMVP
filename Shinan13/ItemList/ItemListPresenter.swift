@@ -10,7 +10,7 @@ import Foundation
 
 protocol ItemListPresenterInput {
     var items: [Item] { get }
-    func fetchItems()
+    func viewDidLoad()
     func didPushAddButton()
     func didSelectItem(ofID id: Int)
     func didDismissItemEdit()
@@ -28,8 +28,9 @@ final class ItemListPresenter: ItemListPresenterInput {
     
     var items: [Item] = []
     
-    func fetchItems() {
-        items = repository.fetchItems()
+    func viewDidLoad() {
+        fetchItems()
+        view.reloadItems()
     }
     
     func didPushAddButton() {
@@ -45,5 +46,11 @@ final class ItemListPresenter: ItemListPresenterInput {
     func didDismissItemEdit() {
         fetchItems()
         view.reloadItems()
+    }
+}
+
+private extension ItemListPresenter {
+    func fetchItems() {
+        items = repository.fetchItems()
     }
 }

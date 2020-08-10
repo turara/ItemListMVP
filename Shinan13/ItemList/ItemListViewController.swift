@@ -35,7 +35,8 @@ final class ItemListViewController: UIViewController {
         navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .add, target: self, action: #selector(didPushAddButton(_:)))
         // tableViewの初期化
         _ = tableView
-        presenter.fetchItems()
+        
+        presenter.viewDidLoad()
     }
 }
 
