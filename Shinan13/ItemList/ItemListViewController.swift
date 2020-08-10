@@ -56,8 +56,14 @@ extension ItemListViewController: ItemListPresenterOutput {
 
 extension ItemListViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        presenter.fetchItems()
-        reloadItems()
+        if let navigationController = presentationController.presentedViewController as? UINavigationController {
+            switch navigationController.topViewController {
+            case is ItemEditViewController:
+                presenter.didDismissItemEdit()
+            default:
+                break
+            }
+        }
     }
 }
 

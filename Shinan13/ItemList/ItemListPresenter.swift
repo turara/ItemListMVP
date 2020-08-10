@@ -13,6 +13,7 @@ protocol ItemListPresenterInput {
     func fetchItems()
     func didPushAddButton()
     func didSelectItem(ofID id: Int)
+    func didDismissItemEdit()
 }
 
 protocol ItemListPresenterOutput: AnyObject {
@@ -39,5 +40,10 @@ final class ItemListPresenter: ItemListPresenterInput {
         repository.toggleIsChecked(ofItemID: id)
         fetchItems()
         view.reloadItem(ofID: id)
+    }
+    
+    func didDismissItemEdit() {
+        fetchItems()
+        view.reloadItems()
     }
 }
